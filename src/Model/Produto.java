@@ -14,6 +14,7 @@ public class Produto {
         this.quantidade = quantidade;
     }
     
+
     public int getId() {
         return id;
     }
@@ -22,19 +23,27 @@ public class Produto {
         this.id = id;
     }
 
-    public String trazerNome() {
+    public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public float trazerValor() {
+    public float getValor() {
         return valor;
     }
 
-    public int trazerQuantidade(){
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+
+    public int getQuantidade() {
         return quantidade;
     }
-    public void alterarQuantidade(int quantidade){
+
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
