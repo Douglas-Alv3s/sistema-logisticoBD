@@ -3,6 +3,7 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import Model.Compra;
 import Model.Produto;
 import dataSource.IDataSource;
 import exceptions.ErroBDException;
@@ -145,5 +146,11 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ArrayList<Compra> obterCompraProduto(Produto produto) throws ErroBDException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'obterCompraProduto'");
     }
 }

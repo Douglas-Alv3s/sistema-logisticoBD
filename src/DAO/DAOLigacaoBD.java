@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-import Model.Produto;
 import dataSource.IDataSource;
 import dataSource.MySQLDataSource;
 import exceptions.ErroBDException;
@@ -21,7 +19,7 @@ public class DAOLigacaoBD {
     String createTableQuery;
     Connection sqlConexao = null; // Responsavel pela ligação ao banco de dados
     Statement sqlInterpretador = null; // Responsavel pela execução dos comandos SQL
-    IDataSource dataSource = new MySQLDataSource(); // Responsavel pela ligação com o banco de dados 
+     
 
     // Padrão de projeto Singleton pattern
     private static DAOLigacaoBD istance = null;
@@ -71,7 +69,7 @@ public class DAOLigacaoBD {
     // Criação das tabelas
     public void DAOCreateTB(String comandoTable, String nomeTable){
         String createTableQuery = comandoTable;
-        
+        System.out.println(url);
         
         try (Connection sqlConexao = DriverManager.getConnection(url, username, password);
             Statement sqlInterpretador = sqlConexao.createStatement()) {
@@ -93,11 +91,13 @@ public class DAOLigacaoBD {
     }
 
     private void inserirProdutosPadrao() {
-
+        IDataSource dataSource = new MySQLDataSource(); // Responsavel pela ligação com o banco de dados
         try {
-            DAOProduto daoProduto = new DAOProduto(dataSource); // Substitua 'dataSource' pelo seu objeto real
+            Connection connection = DriverManager.getConnection(url, username, password);
+            DAOProduto daoProduto = new DAOProduto(dataSource); // Substitua 'connection' pelo seu objeto real
             daoProduto.inserirProdutosPadrao();
-        } catch (ErroBDException e) {
+            connection.close();
+        } catch (SQLException | ErroBDException e) {
             System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
             e.printStackTrace();
         }

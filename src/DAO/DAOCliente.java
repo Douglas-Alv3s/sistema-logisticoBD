@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 import Model.Cliente;
+import Model.Compra;
 import dataSource.IDataSource;
 import exceptions.ErroBDException;
 
@@ -133,6 +134,12 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             throw new ErroBDException("Erro ao obter todos os clientes do banco de dados", e);
         }
         return clientes;
+    }
+
+    @Override
+    public ArrayList<Compra> obterLocacoesCliente(Cliente cliente) throws ErroBDException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'obterLocacoesCliente'");
     }
 
     

@@ -1,10 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Cliente{
     // Atributos
     private String login;
     private float dinheiro;
     private float gasto;
+    private ArrayList<Compra> compraTabel;
+    private Funcionario funcionario;
 
     // Construtor Default
     public Cliente(){ }
@@ -41,6 +45,13 @@ public class Cliente{
         this.gasto = gasto;
     }
 
+    public ArrayList<Compra> getCompraTabel() {
+        return compraTabel;
+    }
+
+    public void setCompraTabel(ArrayList<Compra> compraTabel) {
+        this.compraTabel = compraTabel;
+    }
 
     // Método de impressão do cliente
     public String imprimir(){
