@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Produto {
-    private int id;
+    private int id_produto;
     private String nome;
     private float valor;
     private int quantidade;
@@ -19,12 +19,12 @@ public class Produto {
         this.quantidade = quantidade;
     }
     
-    public int getId() {
-        return id;
+    public int getId_produto() {
+        return id_produto;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_produto(int id_produto) {
+        this.id_produto = id_produto;
     }
 
     public String getNome() {

@@ -2,6 +2,7 @@ package DAO;
 
 import java.util.ArrayList;
 
+import DAO.InterfaceDAO.IDAOFuncionario;
 import Model.Funcionario;
 import exceptions.ErroBDException;
 

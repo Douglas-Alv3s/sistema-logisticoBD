@@ -3,32 +3,35 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
+import DAO.InterfaceDAO.IDAOCliente;
+import DAO.InterfaceDAO.IDAOGenerico;
 import Model.Cliente;
 import Model.Compra;
-import dataSource.IDataSource;
+import dataSource.MySQLDataSource;
 import exceptions.ErroBDException;
 
 public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
-    private IDataSource dataSource;
+    private MySQLDataSource dataSource;
     
     
-    public DAOCliente(IDataSource dataSource) throws ErroBDException{
+    public DAOCliente(MySQLDataSource dataSource) throws ErroBDException{
         this.dataSource = dataSource;
     }
 
     @Override
-    public Cliente consultar(String login) throws ErroBDException {
+    public Cliente consultar(String nome) throws ErroBDException {
         try {
-            String sql = "SELECT * FROM cliente WHERE login = '" + login + "'";
+            String sql = "SELECT * FROM cliente WHERE nome = '" + nome + "'";
             ResultSet resultado = dataSource.executarSelect(sql);
     
             if (resultado.next()) {
                 // Extrair os dados do ResultSet e criar um objeto Cliente
-                String clienteLogin = resultado.getString("login");
-                float clienteDinheiro = resultado.getFloat("dinheiro");
+                
+                int id_cliente = resultado.getInt("id_cliente");
+                String nome_cliente = resultado.getString("nome");
+                float dinheiro = resultado.getFloat("dinheiro");
     
-                Cliente cliente = new Cliente(clienteLogin, clienteDinheiro);
+                Cliente cliente = new Cliente(id_cliente, nome_cliente, dinheiro);
                 return cliente;
             } else {
                 // Cliente não encontrado
@@ -41,38 +44,66 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
         }
     }
 
-
+    @Override
     public void adicionar(Cliente cliente) throws ErroBDException {
         try {
-            String login = cliente.getLogin();
+            String nome = cliente.getNome();
             
             // Verificar se o cliente já existe
-            Cliente clienteExistente = consultar(login);          
+            Cliente clienteExistente = consultar(nome);          
             if (clienteExistente != null) {
-                System.out.println("O cliente com login '" + login + "' já existe no banco de dados.");
+                System.out.println("O cliente com nome '" + nome + "' já existe no banco de dados.");
                 return; // Encerra o método, não adicionando um novo cliente
             }
             
-            String sql = "INSERT INTO cliente (login, dinheiro, gasto) VALUES ('" + login + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ")";
+            String sql = "INSERT INTO cliente (nome, dinheiro, gasto) VALUES ('" + nome + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ")";
             dataSource.executarQueryGeral(sql);
-            System.out.println("Cliente adicionado com sucesso: " + login);
+            System.out.println("Cliente adicionado com sucesso: " + nome);
         } catch (Exception e) {
             System.out.println("Erro ao adicionar cliente no banco de dados: " + e.getMessage());
         }
     }
 
     @Override
-    public void remover(String login) throws ErroBDException {
+    public Cliente obterUltimoCliente() throws ErroBDException {
+        Cliente cliente = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Cria a consulta SQL para obter o último cliente adicionado
+            String sql = "SELECT * FROM clientes ORDER BY id DESC LIMIT 1";
+
+            // Executa a consulta
+            resultSet  = dataSource.executarSelect(sql);
+
+            // Verifica se há um resultado
+            if (resultSet.next()) {
+                // Extrai os dados do resultado e cria um objeto Cliente
+                int id_cliente = resultSet.getInt("id_cliente");
+                String nome = resultSet.getString("nome");
+                Float dinheiro = resultSet.getFloat("dinheiro");
+                
+                cliente = new Cliente(id_cliente, nome, dinheiro);
+                
+            }
+        } catch (Exception e) {
+            
+        }
+        return cliente;
+    }
+
+    @Override
+    public void remover(String nome) throws ErroBDException {
         try {
             // Verificar se o cliente já existe
-            Cliente clienteExistente = consultar(login);
+            Cliente clienteExistente = consultar(nome);
                        
             if (clienteExistente == null) {
-                System.out.println("O cliente com login '" + login + "' não existe no banco de dados. Impossivel remover.");
+                System.out.println("O cliente com nome '" + nome + "' não existe no banco de dados. Impossivel remover.");
                 return; // Encerra o método, não adicionando um novo cliente
             }
-            String sql = "DELETE FROM cliente WHERE login = '" + login + "'";
-            System.out.println("Cliente com login: '" + login+"' removido." );
+            String sql = "DELETE FROM cliente WHERE nome = '" + nome + "'";
+            System.out.println("Cliente com nome: '" + nome+"' removido." );
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
             throw new ErroBDException("Erro ao remover cliente do banco de dados", e);
@@ -80,9 +111,9 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     }
 
     @Override
-    public void alterar(String chaveAntiga, Cliente dadosNovos) throws ErroBDException {
+    public void alterar(Cliente dadosAntigo, Cliente dadosNovos) throws ErroBDException {
         try {
-            String sql = "UPDATE cliente SET login = '" + dadosNovos.getLogin() + "', dinheiro = " + dadosNovos.getDinheiro() + ", gasto = " + dadosNovos.getGasto() + " WHERE login = '" + chaveAntiga + "'";
+            String sql = "UPDATE cliente SET id_cliente = '" + dadosNovos.getId_cliente() + "', nome = '"+ dadosNovos.getNome()+"', dinheiro = " + dadosNovos.getDinheiro() + ", gasto = " + dadosNovos.getGasto() + " WHERE id_cliente = '" + dadosAntigo.getId_cliente() + "'";
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
             throw new ErroBDException("Erro ao alterar cliente no banco de dados", e);
@@ -112,8 +143,6 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
         }
         return 0f; // Se não houver resultados, retorna 0
     }
-
-
     
     @Override
     public ArrayList<Cliente> obterTodos() throws ErroBDException {
@@ -122,10 +151,11 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             String sql = "SELECT * FROM cliente";
             ResultSet resultado = dataSource.executarSelect(sql);
             while (resultado.next()) {
-                String login = resultado.getString("login");
+                int id_cliente = resultado.getInt("id_cliente");
+                String nome = resultado.getString("nome");
                 float dinheiro = resultado.getFloat("dinheiro");
                 float gasto = resultado.getFloat("gasto");
-                Cliente cliente = new Cliente(login, dinheiro);
+                Cliente cliente = new Cliente(id_cliente, nome, dinheiro);
                 cliente.setGasto(gasto);
                 clientes.add(cliente);
             }

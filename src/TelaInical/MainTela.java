@@ -1,15 +1,14 @@
 package TelaInical;
 
 import DAO.DAOCliente;
-import DAO.DAOLigacaoBD;
-import dataSource.IDataSource;
+import dataSource.CriacaoBD;
 import dataSource.MySQLDataSource;
 
 
 public class MainTela {
     public static void main(String[] args) {
         System.out.println("Helloy problemas!!!");
-        DAOLigacaoBD.getInstance();
+        CriacaoBD.getInstance();
         
         // // Criar uma instância do seu objeto de implementação de IDataSource
         // IDataSource dataSource = new MySQLDataSource();

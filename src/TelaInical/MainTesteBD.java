@@ -3,22 +3,21 @@ package TelaInical;
 import java.util.ArrayList;
 
 import DAO.DAOCliente;
-import DAO.DAOLigacaoBD;
 import Model.Cliente;
-import dataSource.IDataSource;
+import dataSource.CriacaoBD;
 import dataSource.MySQLDataSource;
 import exceptions.ErroBDException;
 
 public class MainTesteBD {
     public static void main(String[] args) {
-        DAOLigacaoBD.getInstance();
+        CriacaoBD.getInstance();
         
         try {
-            // Criar uma instância do seu objeto de implementação de IDataSource
-            IDataSource dataSource = new MySQLDataSource();
+            // Criar uma instância do seu objeto de implementação de MySQLDataSource
+            // MySQLDataSource dataSource = new MySQLDataSource(); -> como não seria instânciado mais de um tipo de objeto do tipo MySQLDataSource
             
             // Criar uma instância do DAOCliente passando o objeto de IDataSource
-            DAOCliente daoCliente = new DAOCliente(dataSource);
+            DAOCliente daoCliente = new DAOCliente(MySQLDataSource.getInstance()); //-> Foi usado o Padrão Sigleton
             
             // Testar o método consultar
             String login = "joao123";

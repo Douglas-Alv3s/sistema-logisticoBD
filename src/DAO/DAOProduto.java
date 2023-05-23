@@ -3,15 +3,17 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import DAO.InterfaceDAO.IDAOGenerico;
+import DAO.InterfaceDAO.IDAOProduto;
 import Model.Compra;
 import Model.Produto;
-import dataSource.IDataSource;
+import dataSource.MySQLDataSource;
 import exceptions.ErroBDException;
 
 public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
-    private IDataSource dataSource;
+    private MySQLDataSource dataSource;
     
-    public DAOProduto(IDataSource dataSource) throws ErroBDException {
+    public DAOProduto(MySQLDataSource dataSource) throws ErroBDException {
         this.dataSource = dataSource;
 
     }
@@ -23,13 +25,13 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             ResultSet resultado = dataSource.executarSelect(sql);
             
             if (resultado.next()) {
-                int id = resultado.getInt("id");
+                int id_produto = resultado.getInt("id");
                 String produtoNome = resultado.getString("nome");
                 float valor = resultado.getFloat("valor");
                 int quantidade = resultado.getInt("quantidade");
                 
                 Produto produto = new Produto(produtoNome, valor, quantidade);
-                produto.setId(id);
+                produto.setId_produto(id_produto);
                 
                 return produto;
             } else {
@@ -79,9 +81,9 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
     }
 
     @Override
-    public void alterar(String chaveAntiga, Produto dadosNovos) throws ErroBDException {
+    public void alterar(Produto dadosAntigo, Produto dadosNovos) throws ErroBDException {
         try {
-            String sql = "UPDATE produto SET nome = '" + dadosNovos.getNome() + "', valor = " + dadosNovos.getValor() + ", quantidade = " + dadosNovos.getQuantidade() + " WHERE nome = '" + chaveAntiga + "'";
+            String sql = "UPDATE produto SET nome = '" + dadosNovos.getNome() + "', valor = " + dadosNovos.getValor() + ", quantidade = " + dadosNovos.getQuantidade() + " WHERE nome = '" + dadosAntigo.getNome() + "'";
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
             throw new ErroBDException("Erro ao alterar produto no banco de dados", e);
@@ -95,12 +97,12 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             String sql = "SELECT * FROM produto";
             ResultSet resultado = dataSource.executarSelect(sql);
             while (resultado.next()) {
-                int id = resultado.getInt("id");
+                int id_produto = resultado.getInt("id_produto");
                 String nome = resultado.getString("nome");
                 float valor = resultado.getFloat("valor");
                 int quantidade = resultado.getInt("quantidade");
                 Produto produto = new Produto(nome, valor, quantidade);
-                produto.setId(id);
+                produto.setId_produto(id_produto);
                 produtos.add(produto);
             }
             resultado.close();
@@ -127,12 +129,12 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
         // Inserir os produtos iniciais na tabela produto
         try {
-            Produto arroz = new Produto("arroz", 2.5f, 3);
-            Produto feijao = new Produto("feijao", 2.5f, 5);
-            Produto cafe = new Produto("cafe", 2.5f, 7);
-            Produto macarrao = new Produto("macarrao", 2.5f, 7);
-            Produto cuscuz = new Produto("cuscuz", 2.5f, 7);
-            Produto tomate = new Produto("tomate", 2.5f, 7);
+            Produto arroz = new Produto("arroz", 5.49f, 10);
+            Produto feijao = new Produto("feijao", 5f, 10);
+            Produto cafe = new Produto("cafe", 8f, 10);
+            Produto macarrao = new Produto("macarrao", 4f, 10);
+            Produto cuscuz = new Produto("cuscuz", 2.5f, 10);
+            Produto tomate = new Produto("tomate", 1.75f, 10);
 
             adicionar(arroz);
             adicionar(feijao);

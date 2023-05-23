@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MySQLDataSource implements IDataSource {
+public class MySQLDataSource{
 	private String user = "root";
 	private String senha = "";
 	private String url = "jdbc:mysql://localhost:3306/sistema_logistico";
@@ -13,7 +13,15 @@ public class MySQLDataSource implements IDataSource {
 	private Connection sgbdConn = null;
 	private Statement sqlInterpreter = null;
 
-	@Override
+	// Padrão de projeto Singleton pattern
+	private static MySQLDataSource istance = null;
+	static public MySQLDataSource getInstance(){
+        if (istance == null){
+            istance = new MySQLDataSource();
+        }
+        return istance;
+    }
+
 	public ResultSet executarSelect(String sql) throws Exception {
 		try {
 			if(this.sqlInterpreter == null  ||  this.sqlInterpreter.isClosed())
@@ -26,7 +34,7 @@ public class MySQLDataSource implements IDataSource {
 		}
 	}
 
-	@Override
+	
 	public int executarQueryGeral(String sql) throws Exception {
 		try {
 			if(sqlInterpreter == null  ||  this.sqlInterpreter.isClosed())
@@ -39,7 +47,7 @@ public class MySQLDataSource implements IDataSource {
 		}
 	}
 
-	@Override
+	
 	public void abrirConexao() throws Exception {
 		try {
 			Class.forName(this.driverUrl);
@@ -52,7 +60,7 @@ public class MySQLDataSource implements IDataSource {
 		}
 	}
 
-	@Override
+	
 	public void fecharConexao() throws Exception{
 		try {
 			if (sqlInterpreter != null)

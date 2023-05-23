@@ -4,29 +4,40 @@ import java.util.ArrayList;
 
 public class Cliente{
     // Atributos
-    private String login;
+    private int id_cliente;
+    private String nome;
     private float dinheiro;
     private float gasto;
-    private ArrayList<Compra> compraTabel;
+    private ArrayList<Compra> comprasRelacao;
     private Funcionario funcionario;
+
 
     // Construtor Default
     public Cliente(){ }
 
+
     // Construtor com sobrecarga
-    public Cliente(String login, float dinheiro) {
-        this.login = login;
+    public Cliente(int id_cliente, String nome, float dinheiro) {
+        this.nome = nome;
         this.dinheiro = dinheiro;
         this.gasto = 0;
+        this.comprasRelacao = new ArrayList<>();
     }
 
     // Metodos de acesso
-    public String getLogin() {
-        return login;
+    public int getId_cliente() {
+        return id_cliente;
+    }
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public float getDinheiro() {
@@ -45,17 +56,35 @@ public class Cliente{
         this.gasto = gasto;
     }
 
-    public ArrayList<Compra> getCompraTabel() {
-        return compraTabel;
+    public ArrayList<Compra> getComprasRelacao() {
+        return comprasRelacao;
     }
 
-    public void setCompraTabel(ArrayList<Compra> compraTabel) {
-        this.compraTabel = compraTabel;
+    public void setComprasRelacao(ArrayList<Compra> comprasRelacao) {
+        this.comprasRelacao = comprasRelacao;
     }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public void adicionarCompra(Compra compra) {
+        comprasRelacao.add(compra);
+    }
+
+    public void removerCompra(Compra compra) {
+        comprasRelacao.remove(compra);
+    }
+
+
 
     // Método de impressão do cliente
     public String imprimir(){
-        return "login cliente: "+ this.login+"\n"+
+        return "nome cliente: "+ this.nome+"\n"+
                 String.format("\nGasto: R$%.2f \n", this.gasto);
     }
 

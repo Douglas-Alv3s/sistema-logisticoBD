@@ -1,4 +1,4 @@
-package DAO;
+package dataSource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,36 +6,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import dataSource.IDataSource;
-import dataSource.MySQLDataSource;
+import DAO.DAOProduto;
 import exceptions.ErroBDException;
 
-public class DAOLigacaoBD {
+public class CriacaoBD {
     
     String url = "jdbc:mysql://localhost:3306";
     String username = "root";
     String password = "";
     String nomeBancoDados = "sistema_logistico";
-    String createTableQuery;
     Connection sqlConexao = null; // Responsavel pela ligação ao banco de dados
     Statement sqlInterpretador = null; // Responsavel pela execução dos comandos SQL
      
-
-    // Padrão de projeto Singleton pattern
-    private static DAOLigacaoBD istance = null;
     
-    public DAOLigacaoBD() {
+    public CriacaoBD() {
         DAOCreateDB();
-        DAOCreateTB("CREATE TABLE cliente (login varchar(30) PRIMARY KEY, dinheiro decimal(10,2), gasto decimal(10,2) DEFAULT '0')", "cliente");
-        DAOCreateTB("CREATE TABLE produto (id int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), valor decimal(10,2), quantidade int)", "produto");
+        DAOCreateTB("CREATE TABLE cliente (id_cliente int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), dinheiro decimal(10,2), gasto decimal(10,2) DEFAULT '0')", "cliente");
+        DAOCreateTB("CREATE TABLE produto (id_produto int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), valor decimal(10,2), quantidade int)", "produto");
         inserirProdutosPadrao(); // Insere os produtos vindo por padrão na Tabela Produto
-        DAOCreateTB("CREATE TABLE funcionario (id int PRIMARY KEY AUTO_INCREMENT, usuario varchar(30), senha varchar(30))", "funcionario");
+        DAOCreateTB("CREATE TABLE funcionario (id_funcionario int PRIMARY KEY AUTO_INCREMENT, usuario varchar(30), senha varchar(30))", "funcionario");
+        DAOCreateTB("CREATE TABLE compra (id_compra int PRIMARY KEY AUTO_INCREMENT, id_clienteFK int, id_produtoFK int)", "compra");
         
     }
 
-    static public DAOLigacaoBD getInstance(){
+    // Padrão de projeto Singleton pattern
+    private static CriacaoBD istance = null;
+    static public CriacaoBD getInstance(){
         if (istance == null){
-            istance = new DAOLigacaoBD();
+            istance = new CriacaoBD();
         }
         return istance;
     }
@@ -91,7 +89,7 @@ public class DAOLigacaoBD {
     }
 
     private void inserirProdutosPadrao() {
-        IDataSource dataSource = new MySQLDataSource(); // Responsavel pela ligação com o banco de dados
+        MySQLDataSource dataSource = MySQLDataSource.getInstance(); // Responsavel pela ligação com o banco de dados
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             DAOProduto daoProduto = new DAOProduto(dataSource); // Substitua 'connection' pelo seu objeto real
@@ -102,7 +100,6 @@ public class DAOLigacaoBD {
             e.printStackTrace();
         }
     }
-
 
 
     public String getUrl() {
