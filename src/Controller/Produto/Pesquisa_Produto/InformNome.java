@@ -1,4 +1,4 @@
-package Controller.Pesquisa_Produto;
+package Controller.Produto.Pesquisa_Produto;
 
 import java.util.Scanner;
 

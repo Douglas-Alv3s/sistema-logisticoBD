@@ -1,4 +1,4 @@
-package Controller.Mostrar_Produto;
+package Controller.Produto.Mostrar_Produto;
 
 import java.util.ArrayList;
 import java.util.Iterator;

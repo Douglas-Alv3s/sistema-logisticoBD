@@ -2,12 +2,13 @@ package View;
 
 import java.util.Scanner;
 
-import Controller.Autenticar_Funcionario.ResultadoAutenticacao;
-import Controller.Compra_Produto.CompraProduto;
-import Controller.Compra_Produto.Inform_produto;
-import Controller.Mostrar_Produto.VisualizarProduto;
-import Controller.Pesquisa_Produto.InformNome;
-import Controller.Pesquisa_Produto.PesquisarProduto;
+import Controller.Cliente_Produto.Compra_Produto.CompraProduto;
+import Controller.Cliente_Produto.Compra_Produto.Inform_produto;
+import Controller.Funcionario.Autenticar_Funcionario.ResultadoAutenticacao;
+import Controller.Funcionario.Funcionario_produto.RemoverProduto;
+import Controller.Produto.Mostrar_Produto.VisualizarProduto;
+import Controller.Produto.Pesquisa_Produto.InformNome;
+import Controller.Produto.Pesquisa_Produto.PesquisarProduto;
 import DAO.DAOCliente;
 import Model.Cliente;
 import Model.Funcionario;
@@ -119,14 +120,11 @@ public class Entradas{
             String decisao = input.nextLine().toUpperCase();
             System.out.println("\n==========================================\n");
             
-            if (decisao.equals("C")){
-                CompraProduto.getInstance().realizarCompra(new Inform_produto());
+            if (decisao.equals("A")){
+                
                 
             }else if (decisao.equals("R")){
-            //     removerComprar();
-                
-            }else if (decisao.equals("A")){
-            //     adicionarProduto();
+                RemoverProduto.getInstance().removerProduto(new InformNome());
                 
             }else if (decisao.equals("T")){
                 VisualizarProduto.getInstance().verProdutos();                

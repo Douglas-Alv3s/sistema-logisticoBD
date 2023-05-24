@@ -1,4 +1,4 @@
-package Controller.Compra_Produto;
+package Controller.Cliente_Produto.Compra_Produto;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Controller.Pesquisa_Produto;
+package Controller.Produto.Pesquisa_Produto;
 
 import DAO.DAOProduto;
 import Model.Produto;

@@ -1,4 +1,4 @@
-package Controller.Autenticar_Funcionario;
+package Controller.Funcionario.Autenticar_Funcionario;
 
 import View.Tela;
 
