@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Controller.Cliente_Produto.Compra_Produto.CompraProduto;
 import Controller.Cliente_Produto.Compra_Produto.Inform_produto;
 import Controller.Funcionario.Autenticar_Funcionario.ResultadoAutenticacao;
+import Controller.Funcionario.Funcionario_cliente.VisualizarGasto;
 import Controller.Funcionario.Funcionario_produto.RemoverProduto;
 import Controller.Produto.Mostrar_Produto.VisualizarProduto;
 import Controller.Produto.Pesquisa_Produto.InformNome;
@@ -133,8 +134,7 @@ public class Entradas{
                 PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
             }else if(decisao.equals("M")){
                 System.out.println("========== Relatorio do mercado ==========");
-            //     System.out.println(CadastroCliente.getInstance().listarClientes());
-            //     System.out.println(CadastroCliente.getInstance().gastoTotal());
+                VisualizarGasto.getInstance().relatorioMercado();
             } else if (decisao.equals("V")){
                 Tela.getInstance().telaInicial();
             } else if(decisao.equals("3")){
