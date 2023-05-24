@@ -8,7 +8,7 @@ import Model.Cliente;
 import Model.Compra;
 import Model.Produto;
 import dataSource.MySQLDataSource;
-import exceptions.ErroBDException;
+
 
 public class DAOCompra implements IDAOCompra{
     private MySQLDataSource dataSource;
@@ -20,7 +20,7 @@ public class DAOCompra implements IDAOCompra{
     }
 
     @Override
-    public void realizarCompra(Compra compra) throws ErroBDException {
+    public void realizarCompra(Compra compra){
         String sql = "INSERT INTO compra (id_clienteFK, id_produtoFK) VALUES ('" +
                 compra.getCliente().getId_cliente() + "', " +
                 compra.getProduto().getId_produto() + ")";
@@ -28,12 +28,12 @@ public class DAOCompra implements IDAOCompra{
         try {
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao adicionar a compra.", e);
+            System.out.println("Erro ao adicionar a compra.");
         }
     }
 
     @Override
-    public ArrayList<Compra> mostrarCompras() throws ErroBDException {
+    public ArrayList<Compra> mostrarCompras(){
         ArrayList<Compra> compras = new ArrayList<>();
         String sql = "SELECT * FROM compra";
 
@@ -53,14 +53,14 @@ public class DAOCompra implements IDAOCompra{
 
             resultSet.close();
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao listar as compras.", e);
+            System.out.println("Erro ao listar as compras.");
         }
 
         return compras;
     }
 
     @Override
-    public ArrayList<Compra> mostrarComprasPorCliente(Cliente cliente) throws ErroBDException {
+    public ArrayList<Compra> mostrarComprasPorCliente(Cliente cliente){
         ArrayList<Compra> compras = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE id_clienteFK = '" + cliente.getId_cliente() + "'";
 
@@ -78,7 +78,7 @@ public class DAOCompra implements IDAOCompra{
 
             resultSet.close();
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao listar as compras do cliente " + cliente.getNome(), e);
+            System.out.println("Erro ao listar as compras do cliente " + cliente.getNome());
         }
 
         return compras;

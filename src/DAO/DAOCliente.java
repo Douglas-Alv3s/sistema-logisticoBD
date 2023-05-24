@@ -8,18 +8,18 @@ import DAO.InterfaceDAO.IDAOGenerico;
 import Model.Cliente;
 import Model.Compra;
 import dataSource.MySQLDataSource;
-import exceptions.ErroBDException;
+
 
 public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     private MySQLDataSource dataSource;
     
     
-    public DAOCliente(MySQLDataSource dataSource) throws ErroBDException{
+    public DAOCliente(MySQLDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public Cliente consultar(String nome) throws ErroBDException {
+    public Cliente consultar(String nome)  {
         try {
             String sql = "SELECT * FROM cliente WHERE nome = '" + nome + "'";
             ResultSet resultado = dataSource.executarSelect(sql);
@@ -44,7 +44,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     }
 
     @Override
-    public void adicionar(Cliente cliente) throws ErroBDException {
+    public void adicionar(Cliente cliente)  {
         try {
             String nome = cliente.getNome();
             
@@ -64,7 +64,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     }
 
     @Override
-    public Cliente obterUltimoCliente() throws ErroBDException {
+    public Cliente obterUltimoCliente()  {
         Cliente cliente = null;
         ResultSet resultSet = null;
 
@@ -92,7 +92,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     }
 
     @Override
-    public void remover(String nome) throws ErroBDException {
+    public void remover(String nome)  {
         try {
             // Verificar se o cliente já existe
             Cliente clienteExistente = consultar(nome);
@@ -105,30 +105,30 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             System.out.println("Cliente com nome: '" + nome+"' removido." );
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao remover cliente do banco de dados", e);
+            System.out.println("Erro ao remover cliente do banco de dados");
         }
     }
 
     @Override
-    public void alterar(Cliente dadosAntigo, Cliente dadosNovos) throws ErroBDException {
+    public void alterar(Cliente dadosAntigo, Cliente dadosNovos){
         try {
             String sql = "UPDATE cliente SET id_cliente = '" + dadosNovos.getId_cliente() + "', nome = '"+ dadosNovos.getNome()+"', dinheiro = " + dadosNovos.getDinheiro() + ", gasto = " + dadosNovos.getGasto() + " WHERE id_cliente = '" + dadosAntigo.getId_cliente() + "'";
             System.out.println("Comando SQL: "+sql);
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao alterar cliente no banco de dados", e);
+            System.out.println("Erro ao alterar cliente no banco de dados");
         }
     }
 
     // @Override
-    // public ArrayList<Cliente> consultarNome(String nome) throws ErroBDException {
+    // public ArrayList<Cliente> consultarNome(String nome){
         
     //     throw new UnsupportedOperationException("Unimplemented method 'consultarNome'");
     // }
 
    
     @Override
-    public Float consultarGastoTotal() throws ErroBDException {
+    public Float consultarGastoTotal(){
         try {
             String sql = "SELECT SUM(gasto) AS gasto_total FROM cliente";
             ResultSet resultado = dataSource.executarSelect(sql);
@@ -139,13 +139,13 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             }
             resultado.close();
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao consultar gasto total no banco de dados", e);
+            System.out.println("Erro ao consultar gasto total no banco de dados");
         }
         return 0f; // Se não houver resultados, retorna 0
     }
     
     @Override
-    public ArrayList<Cliente> obterTodos() throws ErroBDException {
+    public ArrayList<Cliente> obterTodos(){
         ArrayList<Cliente> clientes = new ArrayList<>();
         try {
             String sql = "SELECT * FROM cliente";
@@ -161,13 +161,13 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             }
             resultado.close();
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao obter todos os clientes do banco de dados", e);
+            System.out.println("Erro ao obter todos os clientes do banco de dados");
         }
         return clientes;
     }
 
     @Override
-    public ArrayList<Compra> obterLocacoesCliente(Cliente cliente) throws ErroBDException {
+    public ArrayList<Compra> obterLocacoesCliente(Cliente cliente) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obterLocacoesCliente'");
     }

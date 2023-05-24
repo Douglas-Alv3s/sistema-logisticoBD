@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import DAO.DAOProduto;
-import exceptions.ErroBDException;
 
 public class CriacaoBD {
     
@@ -95,7 +94,7 @@ public class CriacaoBD {
             DAOProduto daoProduto = new DAOProduto(dataSource); // Substitua 'connection' pelo seu objeto real
             daoProduto.inserirProdutosPadrao();
             connection.close();
-        } catch (SQLException | ErroBDException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
             e.printStackTrace();
         }

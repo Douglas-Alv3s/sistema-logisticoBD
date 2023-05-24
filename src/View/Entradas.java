@@ -101,7 +101,43 @@ public class Entradas{
                 break;
             }
         }
-        
+    }
+
+    public void opcaoFuncionario(){
+        Scanner input = new Scanner(System.in);
+
+        while(true){
+            Tela.getInstance().MostrarTelaFuncionario();
+            System.out.println("\n==========================================\n");
+            System.out.print("Escolha o que deseja: ");
+            String decisao = input.nextLine().toUpperCase();
+            System.out.println("\n==========================================\n");
+            
+            if (decisao.equals("C")){
+                CompraProduto.getInstance().realizarCompra(new Inform_produto());
+                
+            }else if (decisao.equals("R")){
+            //     removerComprar();
+                
+            }else if (decisao.equals("A")){
+            //     adicionarProduto();
+                
+            }else if (decisao.equals("T")){
+                VisualizarProduto.getInstance().verProdutos();                
+   
+            }else if (decisao.equals("P")){
+                PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
+            }else if(decisao.equals("M")){
+                System.out.println("========== Relatorio do mercado ==========");
+            //     System.out.println(CadastroCliente.getInstance().listarClientes());
+            //     System.out.println(CadastroCliente.getInstance().gastoTotal());
+            } else if (decisao.equals("V")){
+                Tela.getInstance().telaInicial();
+            } else if(decisao.equals("3")){
+                System.out.println("Saindo do programa!");
+                break;
+            }
+        }
         
     }
 

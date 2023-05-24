@@ -8,18 +8,17 @@ import DAO.InterfaceDAO.IDAOProduto;
 import Model.Compra;
 import Model.Produto;
 import dataSource.MySQLDataSource;
-import exceptions.ErroBDException;
 
 public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
     private MySQLDataSource dataSource;
     
-    public DAOProduto(MySQLDataSource dataSource) throws ErroBDException {
+    public DAOProduto(MySQLDataSource dataSource) {
         this.dataSource = dataSource;
 
     }
 
     @Override
-    public Produto consultar(String nome) throws ErroBDException {
+    public Produto consultar(String nome) {
         try {
             String sql = "SELECT * FROM produto WHERE nome = '" + nome + "'";
             ResultSet resultado = dataSource.executarSelect(sql);
@@ -38,12 +37,13 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
                 return null;
             }
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao consultar produto no banco de dados", e);
+            System.out.println("Erro ao consultar produto no banco de dados");
+            return null;
         }
     }
 
     @Override
-    public void adicionar(Produto produto) throws ErroBDException {
+    public void adicionar(Produto produto) {
         try {
             String nome = produto.getNome();
             
@@ -60,12 +60,12 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
 
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao adicionar produto no banco de dados", e);
+            System.out.println("Erro ao adicionar produto no banco de dados");
         }
     }
 
     @Override
-    public void remover(String nome) throws ErroBDException {
+    public void remover(String nome) {
         try {
             // Verificar se o produto já existe
             Produto produtoExistente = consultar(nome);
@@ -78,22 +78,22 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             String sql = "DELETE FROM produto WHERE nome = '" + nome + "'";
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao remover produto do banco de dados", e);
+            System.out.println("Erro ao remover produto do banco de dados");
         }
     }
 
     @Override
-    public void alterar(Produto dadosAntigo, Produto dadosNovos) throws ErroBDException {
+    public void alterar(Produto dadosAntigo, Produto dadosNovos) {
         try {
             String sql = "UPDATE produto SET nome = '" + dadosNovos.getNome() + "', valor = " + dadosNovos.getValor() + ", quantidade = " + dadosNovos.getQuantidade() + " WHERE nome = '" + dadosAntigo.getNome() + "'";
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao alterar produto no banco de dados", e);
+            System.out.println("Erro ao alterar produto no banco de dados");
         }
     }
 
     @Override
-    public ArrayList<Produto> obterTodos() throws ErroBDException {
+    public ArrayList<Produto> obterTodos() {
         ArrayList<Produto> produtos = new ArrayList<>();
         try {
             String sql = "SELECT * FROM produto";
@@ -109,13 +109,13 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             }
             resultado.close();
         } catch (Exception e) {
-            throw new ErroBDException("Erro ao obter todos os produtos do banco de dados", e);
+            System.out.println("Erro ao obter todos os produtos do banco de dados");
         }
         return produtos;
     }
 
     @Override
-    public void inserirProdutosPadrao() throws ErroBDException {
+    public void inserirProdutosPadrao() {
         // Verificar se os produtos já foram inseridos
         try {
             ArrayList<Produto> produtos = obterTodos();
@@ -123,7 +123,7 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
                 System.out.println("Os produtos iniciais já foram inseridos anteriormente.");
                 return; // Não é necessário inserir novamente
             }
-        } catch (ErroBDException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao obter os produtos do banco de dados.");
             e.printStackTrace();
             return;
@@ -146,14 +146,14 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             adicionar(tomate);
 
             System.out.println("Produtos iniciais inseridos com sucesso na tabela 'produto'.");
-        } catch (ErroBDException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
             e.printStackTrace();
         }
     }
 
     @Override
-    public ArrayList<Compra> obterCompraProduto(Produto produto) throws ErroBDException {
+    public ArrayList<Compra> obterCompraProduto(Produto produto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obterCompraProduto'");
     }
