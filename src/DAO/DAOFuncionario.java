@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import DAO.InterfaceDAO.IDAOFuncionario;
+import DAO.dataSource.MySQLDataSource;
 import Model.Funcionario;
-import dataSource.MySQLDataSource;
 
 
 

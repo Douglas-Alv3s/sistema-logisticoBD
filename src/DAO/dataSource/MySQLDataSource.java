@@ -1,4 +1,4 @@
-package dataSource;
+package DAO.dataSource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

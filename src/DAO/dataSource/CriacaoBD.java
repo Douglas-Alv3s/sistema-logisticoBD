@@ -1,4 +1,4 @@
-package dataSource;
+package DAO.dataSource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,7 +68,6 @@ public class CriacaoBD {
     // Criação das tabelas
     public void DAOCreateTB(String comandoTable, String nomeTable){
         String createTableQuery = comandoTable;
-        System.out.println(url);
         
         try (Connection sqlConexao = DriverManager.getConnection(url, username, password);
             Statement sqlInterpretador = sqlConexao.createStatement()) {

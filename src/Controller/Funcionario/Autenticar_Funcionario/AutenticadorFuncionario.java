@@ -1,9 +1,9 @@
 package Controller.Funcionario.Autenticar_Funcionario;
 
 import DAO.DAOFuncionario;
+import DAO.dataSource.MySQLDataSource;
 import Model.Funcionario;
 import View.Entradas;
-import dataSource.MySQLDataSource;
 
 public class AutenticadorFuncionario {
     

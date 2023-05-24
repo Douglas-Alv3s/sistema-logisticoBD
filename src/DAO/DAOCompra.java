@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import DAO.InterfaceDAO.IDAOCompra;
+import DAO.dataSource.MySQLDataSource;
 import Model.Cliente;
 import Model.Compra;
 import Model.Produto;
-import dataSource.MySQLDataSource;
 
 
 public class DAOCompra implements IDAOCompra{

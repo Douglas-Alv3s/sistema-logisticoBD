@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import DAO.InterfaceDAO.IDAOGenerico;
 import DAO.InterfaceDAO.IDAOProduto;
+import DAO.dataSource.MySQLDataSource;
 import Model.Compra;
 import Model.Produto;
-import dataSource.MySQLDataSource;
 
 public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
     private MySQLDataSource dataSource;

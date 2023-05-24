@@ -2,7 +2,7 @@ package Controller.Funcionario.Funcionario_produto;
 
 import Controller.Produto.Pesquisa_Produto.InformNome;
 import DAO.DAOProduto;
-import dataSource.MySQLDataSource;
+import DAO.dataSource.MySQLDataSource;
 
 public class RemoverProduto {
     

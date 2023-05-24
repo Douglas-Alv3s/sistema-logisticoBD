@@ -3,10 +3,10 @@ package Controller.Cliente_Produto.Compra_Produto;
 import DAO.DAOCliente;
 import DAO.DAOCompra;
 import DAO.DAOProduto;
+import DAO.dataSource.MySQLDataSource;
 import Model.Cliente;
 import Model.Compra;
 import Model.Produto;
-import dataSource.MySQLDataSource;
 
 public class CompraProduto {
 

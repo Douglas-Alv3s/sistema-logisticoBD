@@ -11,9 +11,9 @@ import Controller.Produto.Mostrar_Produto.VisualizarProduto;
 import Controller.Produto.Pesquisa_Produto.InformNome;
 import Controller.Produto.Pesquisa_Produto.PesquisarProduto;
 import DAO.DAOCliente;
+import DAO.dataSource.MySQLDataSource;
 import Model.Cliente;
 import Model.Funcionario;
-import dataSource.MySQLDataSource;
 
 public class Entradas{
     

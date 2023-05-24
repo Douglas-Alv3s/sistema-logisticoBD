@@ -1,7 +1,7 @@
 package Controller.Funcionario.Funcionario_cliente;
 
 import DAO.DAOCliente;
-import dataSource.MySQLDataSource;
+import DAO.dataSource.MySQLDataSource;
 
 public class VisualizarGasto {
     private static VisualizarGasto instance = null;

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import DAO.InterfaceDAO.IDAOCliente;
 import DAO.InterfaceDAO.IDAOGenerico;
+import DAO.dataSource.MySQLDataSource;
 import Model.Cliente;
 import Model.Compra;
-import dataSource.MySQLDataSource;
 
 
 public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{

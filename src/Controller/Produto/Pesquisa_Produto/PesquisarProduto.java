@@ -1,8 +1,8 @@
 package Controller.Produto.Pesquisa_Produto;
 
 import DAO.DAOProduto;
+import DAO.dataSource.MySQLDataSource;
 import Model.Produto;
-import dataSource.MySQLDataSource;
 
 public class PesquisarProduto{
     

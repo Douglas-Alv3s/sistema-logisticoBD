@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import DAO.DAOProduto;
+import DAO.dataSource.MySQLDataSource;
 import Model.Produto;
-import dataSource.MySQLDataSource;
 
 public class VisualizarProduto {
     
