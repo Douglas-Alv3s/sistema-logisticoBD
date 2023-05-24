@@ -2,6 +2,7 @@ package View;
 
 import java.util.Scanner;
 
+import Controller.Autenticar_Funcionario.ResultadoAutenticacao;
 import Controller.Compra_Produto.CompraProduto;
 import Controller.Compra_Produto.Inform_produto;
 import Controller.Mostrar_Produto.VisualizarProduto;
@@ -9,6 +10,7 @@ import Controller.Pesquisa_Produto.InformNome;
 import Controller.Pesquisa_Produto.PesquisarProduto;
 import DAO.DAOCliente;
 import Model.Cliente;
+import Model.Funcionario;
 import dataSource.MySQLDataSource;
 
 public class Entradas{
@@ -31,7 +33,7 @@ public class Entradas{
             if (decisao.equals("1")){
                 Tela.getInstance().telaCliente();
             }else if (decisao.equals("2")){
-                Tela.getInstance().telaFuncionario();
+                ResultadoAutenticacao.getInstance().autenticarFuncionario();
             } else if (decisao.equals("3")){
                 System.out.println("Saindo do programa!");
                 break;
@@ -78,29 +80,33 @@ public class Entradas{
             
             if (decisao.equals("C")){
                 CompraProduto.getInstance().realizarCompra(new Inform_produto());
-                
-            // }else if (decisao.equals("R")){
-            //     removerComprar();
-                
-            // }else if (decisao.equals("A")){
-            //     adicionarProduto();
-                
+               
             }else if (decisao.equals("T")){
-                VisualizarProduto.getInstance().verProdutos();                
-   
+                VisualizarProduto.getInstance().verProdutos(); 
+
             }else if (decisao.equals("P")){
                 PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
-            // }else if(decisao.equals("M")){
-            //     System.out.println("========== Relatorio do mercado ==========");
-            //     System.out.println(CadastroCliente.getInstance().listarClientes());
-            //     System.out.println(CadastroCliente.getInstance().gastoTotal());
+
             } else if (decisao.equals("V")){
                 Tela.getInstance().telaInicial();
             } else if(decisao.equals("3")){
+
                 System.out.println("Saindo do programa!");
                 break;
             }
         }
+    }
+
+    public Funcionario entradaFuncionario(){
+        Scanner input = new Scanner(System.in);
+        
+        System.out.print("\nLogin: ");
+        String login = input.next();
+        System.out.print("Senha: ");
+        String senha = input.next();
+
+        Funcionario funcionario = new Funcionario(login, senha);
+        return funcionario;
     }
 
     public void opcaoFuncionario(){

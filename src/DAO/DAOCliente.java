@@ -26,11 +26,11 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     
             if (resultado.next()) {
                 // Extrair os dados do ResultSet e criar um objeto Cliente
-                
+                int id_cliente = resultado.getInt("id_cliente");
                 String nome_cliente = resultado.getString("nome");
                 float dinheiro = resultado.getFloat("dinheiro");
     
-                Cliente cliente = new Cliente(nome_cliente, dinheiro);
+                Cliente cliente = new Cliente(id_cliente, nome_cliente, dinheiro);
                 return cliente;
             } else {
                 // Cliente não encontrado
@@ -55,7 +55,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
                 return; // Encerra o método, não adicionando um novo cliente
             }
             
-            String sql = "INSERT INTO cliente (nome, dinheiro, gasto) VALUES ('" + nome + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ")";
+            String sql = "INSERT INTO cliente (nome, dinheiro, gasto) VALUES ('" + cliente.getNome() + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ")";
             dataSource.executarQueryGeral(sql);
             System.out.println("Cliente adicionado com sucesso: " + nome);
         } catch (Exception e) {

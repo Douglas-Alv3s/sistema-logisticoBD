@@ -56,8 +56,6 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
             String sql = "INSERT INTO produto (nome, valor, quantidade) VALUES ('" + produto.getNome() + "', " + produto.getValor() + ", " + produto.getQuantidade() + ")";
             dataSource.executarQueryGeral(sql);
-            
-
 
         } catch (Exception e) {
             System.out.println("Erro ao adicionar produto no banco de dados");

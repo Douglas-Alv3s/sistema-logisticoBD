@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import DAO.DAOFuncionario;
 import DAO.DAOProduto;
 
 public class CriacaoBD {
@@ -23,7 +24,8 @@ public class CriacaoBD {
         DAOCreateTB("CREATE TABLE cliente (id_cliente int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), dinheiro decimal(10,2), gasto decimal(10,2) DEFAULT '0')", "cliente");
         DAOCreateTB("CREATE TABLE produto (id_produto int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), valor decimal(10,2), quantidade int)", "produto");
         inserirProdutosPadrao(); // Insere os produtos vindo por padrão na Tabela Produto
-        DAOCreateTB("CREATE TABLE funcionario (id_funcionario int PRIMARY KEY AUTO_INCREMENT, usuario varchar(30), senha varchar(30))", "funcionario");
+        DAOCreateTB("CREATE TABLE funcionario (id_funcionario int PRIMARY KEY AUTO_INCREMENT, login varchar(30), senha varchar(30))", "funcionario");
+        inserirFuncionarioPadrao(); // Insere o funcionario padrão.
         DAOCreateTB("CREATE TABLE compra (id_compra int PRIMARY KEY AUTO_INCREMENT, id_clienteFK int, id_produtoFK int)", "compra");
         
     }
@@ -96,6 +98,19 @@ public class CriacaoBD {
             connection.close();
         } catch (Exception e) {
             System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
+            e.printStackTrace();
+        }
+    }
+
+    private void inserirFuncionarioPadrao() {
+        MySQLDataSource dataSource = MySQLDataSource.getInstance(); // Responsavel pela ligação com o banco de dados
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            DAOFuncionario daoFuncionario = new DAOFuncionario(dataSource); // Substitua 'connection' pelo seu objeto real
+            daoFuncionario.inserirFuncionarioPadrao();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("Erro o funcionario padrão na tabela 'funcionario'.");
             e.printStackTrace();
         }
     }

@@ -1,35 +1,47 @@
 package Model;
 
-import java.util.Scanner;
-
 public class Funcionario{
-    protected String usuario;
-    protected String senha;
+
+    private int id_funcionario;
+    private String login;
+    private String senha;
     
-    Scanner login = new Scanner(System.in);
     
-    public Funcionario(){
-        System.out.print("\nUsuario: ");
-        this.usuario = login.next();
-        System.out.print("Senha: ");
-        this.senha = login.next();
-    }
-    
-    public String mostrarSenha() {
-        return senha;
-    }
-    public String mostrarUsuario(){
-        return usuario;
-    }
-    public void alterarSenha(String senha) {
+    public Funcionario(String login, String senha) {
+        this.login = login;
         this.senha = senha;
     }
-    public void alterarUsuario(String usuario){
-        this.usuario = usuario;
+
+    public Funcionario(int id_funcionario, String login, String senha) {
+        this.id_funcionario = id_funcionario;
+        this.login = login;
+        this.senha = senha;
     }
-    @Override
-    public String toString() {
-        return "Funcionario [usuario=" + usuario + ", senha=" + senha + "]";
+
+    public int getId_funcionario() {
+        return id_funcionario;
     }
+
+    public void setId_funcionario(int id_funcionario) {
+        this.id_funcionario = id_funcionario;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
+    
 
 }
