@@ -51,10 +51,10 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             Produto produtoExistente = consultar(nome);          
             if (produtoExistente != null) {
                 System.out.println("O produto com nome '" + nome + "' já existe no banco de dados.");
-                return; // Encerra o método, não adicionando um novo produto
+                return ; // Encerra o método, não adicionando um novo produto
             }
 
-            String sql = "INSERT INTO produto (nome, valor, quantidade) VALUES ('" + produto.getNome() + "', " + produto.getValor() + ", " + produto.getQuantidade() + ")";
+            String sql = "INSERT INTO produto (nome, valor, quantidade, id_funcionarioFK) VALUES ('" + produto.getNome() + "', " + produto.getValor() + ", " + produto.getQuantidade() + ", '1')";
             dataSource.executarQueryGeral(sql);
 
         } catch (Exception e) {
@@ -129,12 +129,12 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
         // Inserir os produtos iniciais na tabela produto
         try {
-            Produto arroz = new Produto("arroz", 5.49f, 10);
-            Produto feijao = new Produto("feijao", 5f, 10);
-            Produto cafe = new Produto("cafe", 8f, 10);
-            Produto macarrao = new Produto("macarrao", 4f, 10);
-            Produto cuscuz = new Produto("cuscuz", 2.5f, 10);
-            Produto tomate = new Produto("tomate", 1.75f, 10);
+            Produto arroz = new Produto("arroz", 5.49f, 15);
+            Produto feijao = new Produto("feijao", 5f, 15);
+            Produto cafe = new Produto("cafe", 8f, 15);
+            Produto macarrao = new Produto("macarrao", 4f, 15);
+            Produto cuscuz = new Produto("cuscuz", 2.5f, 15);
+            Produto tomate = new Produto("tomate", 1.75f, 15);
 
             adicionar(arroz);
             adicionar(feijao);
@@ -150,9 +150,5 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
         }
     }
 
-    @Override
-    public ArrayList<Compra> obterCompraProduto(Produto produto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterCompraProduto'");
-    }
+
 }

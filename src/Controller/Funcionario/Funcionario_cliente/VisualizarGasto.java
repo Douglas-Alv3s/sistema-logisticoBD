@@ -14,14 +14,15 @@ public class VisualizarGasto {
         return instance;
     }
 
-    public void relatorioMercado(){
+    public String relatorioMercado(){
         try{
             DAOCliente daoCliente = new DAOCliente(MySQLDataSource.getInstance());
             float lucro = daoCliente.consultarGastoTotal();
             
-            System.out.println("-> Lucro do mercadinho: R$%.2f" + lucro);
+            String retornoGasto = String.format("-> Lucro do mercadinho: R$%.2f", lucro);
+            return retornoGasto;
         }catch(Exception e){
-        
+            return null;
         }
     }
 }

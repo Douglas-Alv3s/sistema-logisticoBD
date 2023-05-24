@@ -109,10 +109,5 @@ public class DAOFuncionario implements IDAOFuncionario {
             System.out.println("Erro ao obter o funcionario do banco de dados");
         }
         return funcionarioPadrao;
-    }
-    
-
-    
-
-    
+    }  
 }

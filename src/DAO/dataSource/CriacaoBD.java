@@ -9,7 +9,7 @@ import java.sql.Statement;
 import DAO.DAOFuncionario;
 import DAO.DAOProduto;
 
-public class CriacaoBD {
+public class CriacaoBD{
     
     String url = "jdbc:mysql://localhost:3306";
     String username = "root";
@@ -21,12 +21,20 @@ public class CriacaoBD {
     
     public CriacaoBD() {
         DAOCreateDB();
-        DAOCreateTB("CREATE TABLE cliente (id_cliente int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), dinheiro decimal(10,2), gasto decimal(10,2) DEFAULT '0')", "cliente");
-        DAOCreateTB("CREATE TABLE produto (id_produto int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), valor decimal(10,2), quantidade int)", "produto");
+        // Cria a tabela cliente
+        DAOCreateTB("CREATE TABLE cliente (id_cliente int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), dinheiro decimal(10,2), gasto decimal(10,2) DEFAULT '0', id_funcionarioFK int, FOREIGN KEY (id_funcionarioFK) REFERENCES funcionario (id_funcionario))", "cliente");
+        
+        // Cria a tabela produto
+        DAOCreateTB("CREATE TABLE produto (id_produto int PRIMARY KEY AUTO_INCREMENT, nome varchar(30), valor decimal(10,2), quantidade int, id_funcionarioFK int, FOREIGN KEY (id_funcionarioFK) REFERENCES funcionario (id_funcionario))", "produto");
         inserirProdutosPadrao(); // Insere os produtos vindo por padrão na Tabela Produto
+        
+        // Cria a tabela produto
         DAOCreateTB("CREATE TABLE funcionario (id_funcionario int PRIMARY KEY AUTO_INCREMENT, login varchar(30), senha varchar(30))", "funcionario");
         inserirFuncionarioPadrao(); // Insere o funcionario padrão.
-        DAOCreateTB("CREATE TABLE compra (id_compra int PRIMARY KEY AUTO_INCREMENT, id_clienteFK int, id_produtoFK int)", "compra");
+
+        // Cria a tabela do relacionamento muitos para muitos de cliente e produto.
+        DAOCreateTB("CREATE TABLE compra (id_compra int PRIMARY KEY AUTO_INCREMENT, id_clienteFK int, id_produtoFK int, FOREIGN KEY (id_clienteFK) REFERENCES cliente (id_cliente), FOREIGN KEY (id_produtoFK) REFERENCES produto (id_produto))", "compra");
+
         
     }
 

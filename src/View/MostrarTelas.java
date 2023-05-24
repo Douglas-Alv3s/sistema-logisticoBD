@@ -25,12 +25,13 @@ public class MostrarTelas {
     public void MostrarTelaFuncionario(){
         System.out.println("\n\n==========================================\n");
         System.out.println("\t  TELA DO FUNCIONARIO\n");
-        System.out.println("    [ A ] Adicionar um produto   [ A ]");
-        System.out.println("    [ R ]  Remover um produto    [ R ]");
-        System.out.println("    [ T ] Ver todos os produtos  [ T ]");
-        System.out.println("    [ P ]  Pesquisar pelo nome   [ P ]");
-        System.out.println("    [ M ] Mostrar status cliente [ M ]");
-        System.out.println("    [ V ] Voltar../ Tela Inicial [ V ]");
-        System.out.println("    [ 3 ]        SAIR            [ 3 ]\n");
+        System.out.println("    [ A ]   Adicionar um produto    [ A ]");
+        System.out.println("    [ R ]    Remover um produto     [ R ]");
+        System.out.println("    [ T ]   Ver todos os produtos   [ T ]");
+        System.out.println("    [ P ]    Pesquisar pelo nome    [ P ]");
+        System.out.println("    [ M ] Mostrar lucro do registro [ M ]");
+        System.out.println("    [ L ]     Limpar registro       [ L ]");
+        System.out.println("    [ V ]   Voltar../ Tela Inicial  [ V ]");
+        System.out.println("    [ 3 ]          SAIR             [ 3 ]\n");
     }
 }

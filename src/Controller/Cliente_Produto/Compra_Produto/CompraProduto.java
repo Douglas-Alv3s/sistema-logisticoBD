@@ -25,12 +25,12 @@ public class CompraProduto {
             DAOProduto daoProduto = new DAOProduto(MySQLDataSource.getInstance());
             
             Cliente clienteInicial = daoCliente.obterUltimoCliente();
-            System.out.println("Esse cara aqui é o cliente inicial: " + clienteInicial);
+            // System.out.println("Esse cara aqui é o cliente inicial: " + clienteInicial);
             
 
             Produto produtoInicial = daoProduto.consultar(inform_produto.getNome());
-            System.out.println("id produto antigo: "+produtoInicial.getId_produto());
-            System.out.println("nome produto antigo: "+produtoInicial.getNome());
+            // System.out.println("id produto antigo: "+produtoInicial.getId_produto());
+            // System.out.println("nome produto antigo: "+produtoInicial.getNome());
 
             if(produtoInicial.getQuantidade() > 0){
                 if(produtoInicial.getQuantidade() >= inform_produto.getQuantidade()){
@@ -51,8 +51,7 @@ public class CompraProduto {
                         Float aumentoGasto = gasto; // Criado variavel aumentGasto para facilitar na leitura do codigo
                         aumentoGasto += custoProduto; // Fazendo os calculos do gasto atual
                         
-                        System.out.println("Gasto ocorrido: " + aumentoGasto);
-                        System.out.println("Dinheiro pós desconto: " + descontoDinheiro);
+                        
 
                     
                     
@@ -60,17 +59,12 @@ public class CompraProduto {
                         Cliente cliente = new Cliente(clienteInicial.getId_cliente(), clienteInicial.getNome(), descontoDinheiro, aumentoGasto);
                         daoCliente.alterar(clienteInicial, cliente); // Atualizando registro do cliente no banco de dados
 
-                        System.out.println("id antigo: "+clienteInicial.getId_cliente() + "/ id novo " + cliente.getId_cliente());
-                        // Mostrando os Status do cliente
-                        // System.out.println(cliente.umCliente());
-
 
                     //Realizando atualização nos produtos do mercado
                         int quantidadeAlterada = produtoInicial.getQuantidade() - inform_produto.getQuantidade();
                         Produto produto = new Produto(produtoInicial.getId_produto(), produtoInicial.getNome(), produtoInicial.getValor(), quantidadeAlterada);
                         daoProduto.alterar(produtoInicial, produto); // Atualização na tabela de produtos
                         
-                        System.out.println("id produto antigo: "+produtoInicial.getId_produto() + "/ id produto novo " + produto.getId_produto());
 
                     // Realização do registro de cliente comprando produto.
                         Compra compra = new Compra(cliente, produto);
@@ -78,7 +72,8 @@ public class CompraProduto {
                         daoCompra.realizarCompra(compra);
 
                         System.out.println("Compra Realizada pelo cliente "+ cliente.getNome() + " do produto "+ produto.getNome());
-
+                        System.out.println("Dinheiro atual: " + descontoDinheiro);
+                        System.out.println("Gasto na compra: " + aumentoGasto);
 
                     // Realização da remoção do produto caso zere o estoque
                         if (produto.getQuantidade() == 0){                        

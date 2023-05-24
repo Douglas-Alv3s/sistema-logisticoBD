@@ -55,8 +55,9 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
                 return; // Encerra o método, não adicionando um novo cliente
             }
             
-            String sql = "INSERT INTO cliente (nome, dinheiro, gasto) VALUES ('" + cliente.getNome() + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ")";
+            String sql = "INSERT INTO cliente (nome, dinheiro, gasto, id_funcionarioFK) VALUES ('" + cliente.getNome() + "', " + cliente.getDinheiro() + ", " + cliente.getGasto() + ", '1')";
             dataSource.executarQueryGeral(sql);
+            
             System.out.println("Cliente adicionado com sucesso: " + nome);
         } catch (Exception e) {
             System.out.println("Erro ao adicionar cliente no banco de dados: " + e.getMessage());
@@ -113,7 +114,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     public void alterar(Cliente dadosAntigo, Cliente dadosNovos){
         try {
             String sql = "UPDATE cliente SET id_cliente = '" + dadosNovos.getId_cliente() + "', nome = '"+ dadosNovos.getNome()+"', dinheiro = " + dadosNovos.getDinheiro() + ", gasto = " + dadosNovos.getGasto() + " WHERE id_cliente = '" + dadosAntigo.getId_cliente() + "'";
-            System.out.println("Comando SQL: "+sql);
+            // System.out.println("Comando SQL: "+sql);
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
             System.out.println("Erro ao alterar cliente no banco de dados");
@@ -167,10 +168,14 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     }
 
     @Override
-    public ArrayList<Compra> obterLocacoesCliente(Cliente cliente) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterLocacoesCliente'");
-    }
+    public void limparRegistro(){
+        try {
 
-    
+            String sql = "DELETE FROM cliente";
+            dataSource.executarSelect(sql);
+            System.out.println("Todos os registros de clientes foram apagados.");
+        } catch (Exception e) {
+           System.out.println("Erro ao limpar registros de clientes no banco de dados");
+        }
+    }  
 }

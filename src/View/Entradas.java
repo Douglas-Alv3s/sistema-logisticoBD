@@ -5,7 +5,9 @@ import java.util.Scanner;
 import Controller.Cliente_Produto.Compra_Produto.CompraProduto;
 import Controller.Cliente_Produto.Compra_Produto.Inform_produto;
 import Controller.Funcionario.Autenticar_Funcionario.ResultadoAutenticacao;
+import Controller.Funcionario.Funcionario_cliente.LimparRelatorio;
 import Controller.Funcionario.Funcionario_cliente.VisualizarGasto;
+import Controller.Funcionario.Funcionario_produto.AdicionarProduto;
 import Controller.Funcionario.Funcionario_produto.RemoverProduto;
 import Controller.Produto.Mostrar_Produto.VisualizarProduto;
 import Controller.Produto.Pesquisa_Produto.InformNome;
@@ -122,7 +124,7 @@ public class Entradas{
             System.out.println("\n==========================================\n");
             
             if (decisao.equals("A")){
-                
+                AdicionarProduto.getInstance().adicionarProdutos();
                 
             }else if (decisao.equals("R")){
                 RemoverProduto.getInstance().removerProduto(new InformNome());
@@ -134,7 +136,10 @@ public class Entradas{
                 PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
             }else if(decisao.equals("M")){
                 System.out.println("========== Relatorio do mercado ==========");
-                VisualizarGasto.getInstance().relatorioMercado();
+                System.out.println(VisualizarGasto.getInstance().relatorioMercado());
+            }else if(decisao.equals("L")){
+                System.out.println("========== Limpar registro do mercado ==========");
+                LimparRelatorio.getInstance().limparRegistro();
             } else if (decisao.equals("V")){
                 Tela.getInstance().telaInicial();
             } else if(decisao.equals("3")){
