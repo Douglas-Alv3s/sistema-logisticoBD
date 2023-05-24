@@ -1,4 +1,4 @@
-package View.Compra_Produto;
+package Controller.Compra_Produto;
 
 import java.util.Scanner;
 

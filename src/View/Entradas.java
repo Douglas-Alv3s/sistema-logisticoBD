@@ -2,29 +2,36 @@ package View;
 
 import java.util.Scanner;
 
+import Controller.Compra_Produto.CompraProduto;
+import Controller.Compra_Produto.Inform_produto;
+import Controller.Mostrar_Produto.VisualizarProduto;
+import Controller.Pesquisa_Produto.InformNome;
+import Controller.Pesquisa_Produto.PesquisarProduto;
 import DAO.DAOCliente;
-import DAO.DAOCompra;
-import DAO.DAOProduto;
 import Model.Cliente;
-import Model.Compra;
-import Model.Produto;
 import dataSource.MySQLDataSource;
 
 public class Entradas{
-
-    private Tela opcaoTela;
-
     
+    // Padrão de projeto Singleton pattern
+    private static Entradas istance = null;
+    static public Entradas getInstance(){
+        if (istance == null){
+            istance = new Entradas();
+        }
+        return istance;
+    }
+
     public void opcaoInicial() {
         Scanner input = new Scanner(System.in);
         while(true){
             System.out.println("==========================================");
             System.out.print("Escolha o que deseja: ");
-            String decisao = input.nextLine().toUpperCase();
+            String decisao = input.next();
             if (decisao.equals("1")){
-                opcaoTela.telaCliente();
+                Tela.getInstance().telaCliente();
             }else if (decisao.equals("2")){
-                opcaoTela.telaFuncionario();
+                Tela.getInstance().telaFuncionario();
             } else if (decisao.equals("3")){
                 System.out.println("Saindo do programa!");
                 break;
@@ -33,7 +40,7 @@ public class Entradas{
     }
 
     public void entradaCliente() {
-        Scanner entrada = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         
         // Atributos de cliente
         String nome;
@@ -41,10 +48,9 @@ public class Entradas{
 
         System.out.println("\n============ Entrando cliente ============\n");
         System.out.print("Nome do cliente: ");
-        nome = entrada.nextLine();
-
+        nome = input.nextLine();
         System.out.print("Dinheiro do cliente: R$");
-        dinheiro = entrada.nextFloat();
+        dinheiro = input.nextFloat();
         
         // Criar um objeto na classe
         Cliente cliente = new Cliente(nome, dinheiro);
@@ -62,22 +68,16 @@ public class Entradas{
 
     public void opcaoCliente(){
         Scanner input = new Scanner(System.in);
-        DAOCliente daoCliente = new DAOCliente(MySQLDataSource.getInstance());
-        DAOProduto daoProduto = new DAOProduto(MySQLDataSource.getInstance());
-        DAOCompra daoCompra = new DAOCompra(MySQLDataSource.getInstance());
 
-        Boolean condicao = true;
-        while(condicao){
+        while(true){
+            Tela.getInstance().MostrarTelaCliente();
             System.out.println("\n==========================================\n");
             System.out.print("Escolha o que deseja: ");
             String decisao = input.nextLine().toUpperCase();
             System.out.println("\n==========================================\n");
             
             if (decisao.equals("C")){
-                
-                Cliente clienteAtual = daoCliente.obterUltimoCliente();
-                Produto produto = daoProduto.consultar("decisao");
-                Compra compra = new Compra(clienteAtual, produto);
+                CompraProduto.getInstance().realizarCompra(new Inform_produto());
                 
             // }else if (decisao.equals("R")){
             //     removerComprar();
@@ -86,21 +86,23 @@ public class Entradas{
             //     adicionarProduto();
                 
             }else if (decisao.equals("T")){
-                verTodosProduto();
-                
+                VisualizarProduto.getInstance().verProdutos();                
+   
             }else if (decisao.equals("P")){
-                pesquisarProtuto();
+                PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
             // }else if(decisao.equals("M")){
             //     System.out.println("========== Relatorio do mercado ==========");
             //     System.out.println(CadastroCliente.getInstance().listarClientes());
             //     System.out.println(CadastroCliente.getInstance().gastoTotal());
             } else if (decisao.equals("V")){
-                voltar();
+                Tela.getInstance().telaInicial();
             } else if(decisao.equals("3")){
-                sair();
+                System.out.println("Saindo do programa!");
                 break;
             }
         }
+        
+        
     }
 
     

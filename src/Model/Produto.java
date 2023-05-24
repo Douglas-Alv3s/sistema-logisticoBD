@@ -18,6 +18,13 @@ public class Produto {
         this.valor = valor;
         this.quantidade = quantidade;
     }
+
+    public Produto(int id_produto, String nome, float valor, int quantidade){
+        this.id_produto = id_produto;
+        this.nome = nome;
+        this.valor = valor;
+        this.quantidade = quantidade;
+    }
     
     public int getId_produto() {
         return id_produto;

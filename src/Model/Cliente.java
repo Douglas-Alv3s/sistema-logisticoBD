@@ -17,10 +17,26 @@ public class Cliente{
 
 
     // Construtor com sobrecarga
-    public Cliente(int id_cliente, String nome, float dinheiro) {
+    public Cliente(String nome, float dinheiro) {
         this.nome = nome;
         this.dinheiro = dinheiro;
         this.gasto = 0;
+        this.comprasRelacao = new ArrayList<>();
+    }
+
+    public Cliente(int id_cliente, String nome, float dinheiro) {
+        this.id_cliente = id_cliente;
+        this.nome = nome;
+        this.dinheiro = dinheiro;
+        this.gasto = 0;
+        this.comprasRelacao = new ArrayList<>();
+    }
+
+    public Cliente(int id_cliente, String nome, float dinheiro, float gasto) {
+        this.id_cliente = id_cliente;
+        this.nome = nome;
+        this.dinheiro = dinheiro;
+        this.gasto = gasto;
         this.comprasRelacao = new ArrayList<>();
     }
 

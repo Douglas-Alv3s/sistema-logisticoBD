@@ -25,13 +25,12 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             ResultSet resultado = dataSource.executarSelect(sql);
             
             if (resultado.next()) {
-                int id_produto = resultado.getInt("id");
+                int id_produto = resultado.getInt("id_produto");
                 String produtoNome = resultado.getString("nome");
                 float valor = resultado.getFloat("valor");
                 int quantidade = resultado.getInt("quantidade");
                 
-                Produto produto = new Produto(produtoNome, valor, quantidade);
-                produto.setId_produto(id_produto);
+                Produto produto = new Produto(id_produto, produtoNome, valor, quantidade);
                 
                 return produto;
             } else {
@@ -57,6 +56,9 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
             String sql = "INSERT INTO produto (nome, valor, quantidade) VALUES ('" + produto.getNome() + "', " + produto.getValor() + ", " + produto.getQuantidade() + ")";
             dataSource.executarQueryGeral(sql);
+            
+
+
         } catch (Exception e) {
             throw new ErroBDException("Erro ao adicionar produto no banco de dados", e);
         }

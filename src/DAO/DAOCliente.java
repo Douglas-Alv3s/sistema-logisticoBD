@@ -27,11 +27,10 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             if (resultado.next()) {
                 // Extrair os dados do ResultSet e criar um objeto Cliente
                 
-                int id_cliente = resultado.getInt("id_cliente");
                 String nome_cliente = resultado.getString("nome");
                 float dinheiro = resultado.getFloat("dinheiro");
     
-                Cliente cliente = new Cliente(id_cliente, nome_cliente, dinheiro);
+                Cliente cliente = new Cliente(nome_cliente, dinheiro);
                 return cliente;
             } else {
                 // Cliente não encontrado
@@ -71,7 +70,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
 
         try {
             // Cria a consulta SQL para obter o último cliente adicionado
-            String sql = "SELECT * FROM clientes ORDER BY id DESC LIMIT 1";
+            String sql = "SELECT * FROM cliente ORDER BY id_cliente DESC LIMIT 1";
 
             // Executa a consulta
             resultSet  = dataSource.executarSelect(sql);
@@ -79,7 +78,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             // Verifica se há um resultado
             if (resultSet.next()) {
                 // Extrai os dados do resultado e cria um objeto Cliente
-                int id_cliente = resultSet.getInt("id_cliente");
+                int id_cliente = resultSet.getInt("id_cliente") ;
                 String nome = resultSet.getString("nome");
                 Float dinheiro = resultSet.getFloat("dinheiro");
                 
@@ -114,6 +113,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
     public void alterar(Cliente dadosAntigo, Cliente dadosNovos) throws ErroBDException {
         try {
             String sql = "UPDATE cliente SET id_cliente = '" + dadosNovos.getId_cliente() + "', nome = '"+ dadosNovos.getNome()+"', dinheiro = " + dadosNovos.getDinheiro() + ", gasto = " + dadosNovos.getGasto() + " WHERE id_cliente = '" + dadosAntigo.getId_cliente() + "'";
+            System.out.println("Comando SQL: "+sql);
             dataSource.executarQueryGeral(sql);
         } catch (Exception e) {
             throw new ErroBDException("Erro ao alterar cliente no banco de dados", e);
@@ -151,11 +151,11 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             String sql = "SELECT * FROM cliente";
             ResultSet resultado = dataSource.executarSelect(sql);
             while (resultado.next()) {
-                int id_cliente = resultado.getInt("id_cliente");
+                
                 String nome = resultado.getString("nome");
                 float dinheiro = resultado.getFloat("dinheiro");
                 float gasto = resultado.getFloat("gasto");
-                Cliente cliente = new Cliente(id_cliente, nome, dinheiro);
+                Cliente cliente = new Cliente(nome, dinheiro);
                 cliente.setGasto(gasto);
                 clientes.add(cliente);
             }
