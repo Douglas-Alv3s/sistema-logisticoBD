@@ -23,7 +23,11 @@ public class PesquisarProduto{
             DAOProduto daoProduto = new DAOProduto(MySQLDataSource.getInstance());
             System.out.println("--------------------------------");
             Produto produto = daoProduto.consultar(nomeProduto);
-            System.out.println("Dados do  " + produto);
+            if(produto != null){
+                System.out.println("Dados do  " + produto);
+            }else{
+                System.out.println("O produto " + produto + " não esta disponivel.");
+            }
         }catch(Exception e){
             System.out.println("Erro aconteceu no arquivo PesquisarProduto na pasta Pesquisa_Produto");
         }
