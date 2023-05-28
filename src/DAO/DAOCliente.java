@@ -172,7 +172,7 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
         try {
 
             String sql = "DELETE FROM cliente";
-            dataSource.executarSelect(sql);
+            dataSource.executarQueryGeral(sql);
             System.out.println("Todos os registros de clientes foram apagados.");
         } catch (Exception e) {
            System.out.println("Erro ao limpar registros de clientes no banco de dados");
