@@ -75,17 +75,16 @@ public class CompraProduto {
                         System.out.println("Dinheiro atual: " + descontoDinheiro);
                         System.out.println("Gasto na compra: " + aumentoGasto);
 
-                    // Realização da remoção do produto caso zere o estoque
-                        if (produto.getQuantidade() == 0){                        
-                            daoProduto.remover(produto.getNome()); // Remoção caso a quantidade de produtos seja zerada
-                        }
                     }else{
                         System.out.println("\n------------------------------------------\nDinheiro insuficiente para realizar a compra.");
                     }
                 }else{
                     System.out.println("\n------------------------------------------\nQuantidade invalida");
                 }
+            }else{
+                System.out.println("\n------------------------------------------\nSem estoque desse produto. Compra não realizada.");
             }
+
         }catch(Exception e){
             System.out.println("O Erro ta acontecendo no momento de realizar a compra.");
         } 

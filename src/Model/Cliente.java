@@ -96,13 +96,5 @@ public class Cliente{
         comprasRelacao.remove(compra);
     }
 
-
-
-    // Método de impressão do cliente
-    public String imprimir(){
-        return "nome cliente: "+ this.nome+"\n"+
-                String.format("\nGasto: R$%.2f \n", this.gasto);
-    }
-
 }
 

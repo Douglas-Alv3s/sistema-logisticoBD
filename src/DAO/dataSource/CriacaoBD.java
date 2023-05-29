@@ -12,8 +12,8 @@ import DAO.DAOProduto;
 public class CriacaoBD{
     
     String url = "jdbc:mysql://localhost:3306";
-    String username = "root";
-    String password = "";
+    String user = "root";
+    String senha = "";
     String nomeBancoDados = "sistema_logistico";
     Connection sqlConexao = null; // Responsavel pela ligação ao banco de dados
     Statement sqlInterpretador = null; // Responsavel pela execução dos comandos SQL
@@ -35,7 +35,6 @@ public class CriacaoBD{
 
         // Cria a tabela do relacionamento muitos para muitos de cliente e produto.
         DAOCreateTB("CREATE TABLE compra (id_compra int PRIMARY KEY AUTO_INCREMENT, id_clienteFK int, id_produtoFK int, FOREIGN KEY (id_clienteFK) REFERENCES cliente (id_cliente), FOREIGN KEY (id_produtoFK) REFERENCES produto (id_produto))", "compra");
-
         
     }
 
@@ -51,7 +50,7 @@ public class CriacaoBD{
     // Criação do banco de dados
     public void DAOCreateDB(){
         try {
-            Connection sqlConexao = DriverManager.getConnection(url, username, password);
+            Connection sqlConexao = DriverManager.getConnection(url, user, senha);
             Statement sqlInterpretador = sqlConexao.createStatement();
             // Verifica se o banco de dados já existe
             String checkDatabaseQuery = "SHOW DATABASES LIKE '" + nomeBancoDados + "'";
@@ -78,7 +77,7 @@ public class CriacaoBD{
     public void DAOCreateTB(String comandoTable, String nomeTable){
         String createTableQuery = comandoTable;
         
-        try (Connection sqlConexao = DriverManager.getConnection(url, username, password);
+        try (Connection sqlConexao = DriverManager.getConnection(url, user, senha);
             Statement sqlInterpretador = sqlConexao.createStatement()) {
             
             // Verifica se a tabela já existe
@@ -100,7 +99,7 @@ public class CriacaoBD{
     private void inserirProdutosPadrao() {
         MySQLDataSource dataSource = MySQLDataSource.getInstance(); // Responsavel pela ligação com o banco de dados
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(url, user, senha);
             DAOProduto daoProduto = new DAOProduto(dataSource); // Substitua 'connection' pelo seu objeto real
             daoProduto.inserirProdutosPadrao();
             connection.close();
@@ -113,7 +112,7 @@ public class CriacaoBD{
     private void inserirFuncionarioPadrao() {
         MySQLDataSource dataSource = MySQLDataSource.getInstance(); // Responsavel pela ligação com o banco de dados
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(url, user, senha);
             DAOFuncionario daoFuncionario = new DAOFuncionario(dataSource); // Substitua 'connection' pelo seu objeto real
             daoFuncionario.inserirFuncionarioPadrao();
             connection.close();
@@ -132,20 +131,20 @@ public class CriacaoBD{
         this.url = url;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getNomeBancoDados() {

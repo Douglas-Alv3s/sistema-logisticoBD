@@ -136,7 +136,7 @@ public class Entradas{
                 PesquisarProduto.getInstance().pesquisarProduto(new InformNome());
             }else if(decisao.equals("M")){
                 System.out.println("========== Relatorio do mercado ==========");
-                System.out.println(VisualizarGasto.getInstance().relatorioMercado());
+                VisualizarGasto.getInstance().relatorioMercado();
             }else if(decisao.equals("L")){
                 System.out.println("========== Limpar registro do mercado ==========");
                 LimparRelatorio.getInstance().limparRegistro();

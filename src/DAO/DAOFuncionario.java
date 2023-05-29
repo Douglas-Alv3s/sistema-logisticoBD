@@ -25,22 +25,18 @@ public class DAOFuncionario implements IDAOFuncionario {
             if (!funcionarioPadrao.isEmpty()) {
                 System.out.println("Os funcionarioPadrao iniciais já foram inseridos anteriormente.");
                 return; // Não é necessário inserir novamente
-        }
+            }else{
+
+                // Inserir os funcionario Padrao na tabela funcionario
+                Funcionario funcionario = new Funcionario("admin","1234");
+                adicionarFuncionario(funcionario);
+
+                System.out.println("Funcionario padrao inserido com sucesso na tabela'funcionario'.");
+            }
         } catch (Exception e) {
             System.out.println("Erro ao obter os funcionarioPadrao do banco de dados.");
             e.printStackTrace();
             return;
-        }
-
-        // Inserir os funcionario Padrao na tabela funcionario
-        try {
-            Funcionario funcionario = new Funcionario("admin","1234");
-            adicionarFuncionario(funcionario);
-
-            System.out.println("Funcionario padrao inserido com sucesso na tabela'funcionario'.");
-        } catch (Exception e) {
-            System.out.println("Erro ao inserir Funcionario padrao na tabela 'funcionario'.");
-            e.printStackTrace();
         }
     }
 

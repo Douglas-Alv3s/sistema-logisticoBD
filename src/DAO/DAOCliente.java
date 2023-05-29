@@ -7,7 +7,6 @@ import DAO.InterfaceDAO.IDAOCliente;
 import DAO.InterfaceDAO.IDAOGenerico;
 import DAO.dataSource.MySQLDataSource;
 import Model.Cliente;
-import Model.Compra;
 
 
 public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
@@ -120,13 +119,6 @@ public class DAOCliente implements IDAOGenerico<Cliente>, IDAOCliente{
             System.out.println("Erro ao alterar cliente no banco de dados");
         }
     }
-
-    // @Override
-    // public ArrayList<Cliente> consultarNome(String nome){
-        
-    //     throw new UnsupportedOperationException("Unimplemented method 'consultarNome'");
-    // }
-
    
     @Override
     public Float consultarGastoTotal(){

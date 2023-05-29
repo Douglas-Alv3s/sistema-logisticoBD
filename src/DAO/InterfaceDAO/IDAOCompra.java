@@ -10,5 +10,5 @@ public interface IDAOCompra {
     
     public ArrayList<Compra> mostrarCompras() ;
     public void realizarCompra(Compra compra) ;
-    public ArrayList<Compra> mostrarComprasPorCliente(Cliente cliente) ;
+    public void obterNomeClienteEProduto() ;
 }

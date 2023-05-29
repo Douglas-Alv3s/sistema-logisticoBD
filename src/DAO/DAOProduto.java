@@ -120,35 +120,31 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
             if (!produtos.isEmpty()) {
                 System.out.println("Os produtos iniciais já foram inseridos anteriormente.");
                 return; // Não é necessário inserir novamente
+            }else{
+                
+                // Inserir os produtos iniciais na tabela produto
+                Produto arroz = new Produto("arroz", 5.49f, 15);
+                Produto feijao = new Produto("feijao", 5f, 15);
+                Produto cafe = new Produto("cafe", 8f, 15);
+                Produto macarrao = new Produto("macarrao", 4f, 15);
+                Produto cuscuz = new Produto("cuscuz", 2.5f, 15);
+                Produto tomate = new Produto("tomate", 1.75f, 15);
+
+                adicionar(arroz);
+                adicionar(feijao);
+                adicionar(cafe);
+                adicionar(macarrao);
+                adicionar(cuscuz);
+                adicionar(tomate);
+
+                System.out.println("Produtos iniciais inseridos com sucesso na tabela 'produto'.");
             }
+
         } catch (Exception e) {
             System.out.println("Erro ao obter os produtos do banco de dados.");
             e.printStackTrace();
             return;
         }
-
-        // Inserir os produtos iniciais na tabela produto
-        try {
-            Produto arroz = new Produto("arroz", 5.49f, 15);
-            Produto feijao = new Produto("feijao", 5f, 15);
-            Produto cafe = new Produto("cafe", 8f, 15);
-            Produto macarrao = new Produto("macarrao", 4f, 15);
-            Produto cuscuz = new Produto("cuscuz", 2.5f, 15);
-            Produto tomate = new Produto("tomate", 1.75f, 15);
-
-            adicionar(arroz);
-            adicionar(feijao);
-            adicionar(cafe);
-            adicionar(macarrao);
-            adicionar(cuscuz);
-            adicionar(tomate);
-
-            System.out.println("Produtos iniciais inseridos com sucesso na tabela 'produto'.");
-        } catch (Exception e) {
-            System.out.println("Erro ao inserir os produtos iniciais na tabela 'produto'.");
-            e.printStackTrace();
-        }
     }
-
 
 }

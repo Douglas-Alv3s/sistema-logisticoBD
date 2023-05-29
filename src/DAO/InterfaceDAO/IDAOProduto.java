@@ -1,6 +1,5 @@
 package DAO.InterfaceDAO;
 
-import Model.Produto;
 
 public interface IDAOProduto {
 

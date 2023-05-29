@@ -25,7 +25,7 @@ public class Tela extends MostrarTelas{
     }
 
     public void telaFuncionario(){
-        MostrarTelaFuncionario();
+        // MostrarTelaFuncionario();
         Entradas.getInstance().opcaoFuncionario();       
     }
 

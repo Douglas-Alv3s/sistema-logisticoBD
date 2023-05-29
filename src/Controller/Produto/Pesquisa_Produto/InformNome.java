@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class InformNome {
     Scanner input = new Scanner(System.in);
-    protected String nome;
+    private String nome;
 
     public InformNome(){
         System.out.print("Nome do produto: ");
-        this.nome = input.nextLine().toLowerCase();
+        this.nome = input.next().toLowerCase();
     }
 
     public String getNome() {

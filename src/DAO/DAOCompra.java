@@ -60,28 +60,23 @@ public class DAOCompra implements IDAOCompra{
     }
 
     @Override
-    public ArrayList<Compra> mostrarComprasPorCliente(Cliente cliente){
-        ArrayList<Compra> compras = new ArrayList<>();
-        String sql = "SELECT * FROM compra WHERE id_clienteFK = '" + cliente.getId_cliente() + "'";
-
+    public void obterNomeClienteEProduto(){
         try {
-            ResultSet resultSet = dataSource.executarSelect(sql);
+            String sql = "SELECT DISTINCT c.nome AS nomeCliente, p.nome AS nomeProduto FROM compra co INNER JOIN cliente c ON co.id_clienteFK = c.id_cliente INNER JOIN produto p ON co.id_produtoFK = p.id_produto";
 
-            while (resultSet.next()) {
-                String produtoNome = resultSet.getString("nome");
+            ResultSet resultado = dataSource.executarSelect(sql);
 
-                Produto produto = daoProduto.consultar(produtoNome);
-
-                Compra compra = new Compra(cliente, produto);
-                compras.add(compra);
+            while (resultado.next()) {
+                String nomeCliente = resultado.getString("nomeCliente");
+                String nomeProduto = resultado.getString("nomeProduto");
+                System.out.println("O cliente " + nomeCliente + " comprou " + nomeProduto);
             }
-
-            resultSet.close();
+            
+            return ; // Caso a compra não seja encontrada ou não exista correspondência
+            
         } catch (Exception e) {
-            System.out.println("Erro ao listar as compras do cliente " + cliente.getNome());
+           
         }
-
-        return compras;
     }
 
 
