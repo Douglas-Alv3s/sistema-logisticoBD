@@ -29,7 +29,7 @@ public class MostrarTelas {
         System.out.println("    [ R ]    Remover um produto     [ R ]");
         System.out.println("    [ T ]   Ver todos os produtos   [ T ]");
         System.out.println("    [ P ]    Pesquisar pelo nome    [ P ]");
-        System.out.println("    [ M ] Mostrar lucro do registro [ M ]");
+        System.out.println("    [ M ]   Mostrar o registro      [ M ]");
         System.out.println("    [ L ]     Limpar registro       [ L ]");
         System.out.println("    [ V ]   Voltar../ Tela Inicial  [ V ]");
         System.out.println("    [ 3 ]          SAIR             [ 3 ]\n");

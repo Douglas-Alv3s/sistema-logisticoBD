@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import DAO.InterfaceDAO.IDAOGenerico;
 import DAO.InterfaceDAO.IDAOProduto;
 import DAO.dataSource.MySQLDataSource;
-import Model.Compra;
 import Model.Produto;
 
 public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
@@ -142,7 +141,6 @@ public class DAOProduto implements IDAOGenerico<Produto>, IDAOProduto {
 
         } catch (Exception e) {
             System.out.println("Erro ao obter os produtos do banco de dados.");
-            e.printStackTrace();
             return;
         }
     }

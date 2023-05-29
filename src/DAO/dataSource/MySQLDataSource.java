@@ -22,7 +22,7 @@ public class MySQLDataSource{
         return istance;
     }
 
-	public ResultSet executarSelect(String sql){
+	public ResultSet executarSelect(String sql){ // é usado para consultas que retornam resultado
 		try {
 			if(this.sqlInterpreter == null  ||  this.sqlInterpreter.isClosed())
 				this.abrirConexao();
@@ -34,7 +34,7 @@ public class MySQLDataSource{
 	}
 
 	
-	public Integer executarQueryGeral(String sql){
+	public Integer executarQueryGeral(String sql){ // é usado para instruções que modificam o banco de dados e retorna o numero de linhas afetadas
 		try {
 			if(sqlInterpreter == null  ||  this.sqlInterpreter.isClosed())
 				this.abrirConexao();

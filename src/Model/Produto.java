@@ -74,8 +74,5 @@ public class Produto {
         this.funcionario = funcionario;
     }
 
-    @Override
-    public String toString() {
-        return "Produto: " + nome + String.format(", valor: R$%.2f", valor) + ", quantidade: " + quantidade;
-    }
+    
 }
